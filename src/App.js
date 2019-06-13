@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
-import Card from './Components/Card'
+import './styles/App.css';
+import Cardboard from './Components/Cardboard'
 
 function App() {
   return (
     <div className="App">
-      <Card />
+      <Cardboard level="8"/>
     </div>
   );
 }

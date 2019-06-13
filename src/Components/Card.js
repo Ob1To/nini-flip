@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
-import './Card.css'
+import './../styles/Card.css'
 
 class Card extends Component {
     render() {
-        return (
-            <div className='Card-main'>
-                <h1>This is my h1 header</h1>
-                <h2>and this is my h2 header</h2>
+        return(
+            <div className='Card'>
+                
             </div>
         )
-
     }
 }
 
