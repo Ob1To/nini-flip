@@ -5,7 +5,7 @@ import Cardboard from './Components/Cardboard'
 function App() {
   return (
     <div className="App">
-      <Cardboard level="8"/>
+      <Cardboard level="16"/>
     </div>
   );
 }

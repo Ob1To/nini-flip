@@ -1,5 +1,9 @@
 .Cardboard-main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
     border: 2px solid black;
-    width: 60vw;
-    height: 70vh;
+    width: 40vw;
+    height: 80vh;
 }
