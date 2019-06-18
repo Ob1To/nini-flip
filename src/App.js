@@ -1,11 +1,11 @@
 import React from 'react';
 import './styles/App.css';
-import Cardboard from './Components/Cardboard'
+import Game from './Components/Game'
 
 function App() {
   return (
     <div className="App">
-      <Cardboard level="16"/>
+      <Game />
     </div>
   );
 }

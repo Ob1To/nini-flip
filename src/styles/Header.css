@@ -1,0 +1,7 @@
+.Header-main{
+    display: flex;
+    border: 1px solid black;
+    border-bottom: none;
+    background-color: greenyellow;
+    height: 10vh;
+}

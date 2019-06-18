@@ -7,9 +7,7 @@ body {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Shadows Into Light',"Courier New", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: radial-gradient(circle, red, yellow);

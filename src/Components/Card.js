@@ -8,22 +8,23 @@ class Card extends Component {
         this.cardClicked = this.cardClicked.bind(this);
 
         this.state = {
-            show: false,
-            isFlipped: true
+            notFlipped: true
         }
     }
 
     cardClicked () {
         this.setState(prevState => ({
             clicked: prevState.clicked === 0 ? 1 : 0,
-            isFlipped: !prevState.isFlipped
+            notFlipped: !prevState.notFlipped
         }))
+        this.props.onCardClick(this);
     }
 
     render() {
-        const style = this.state.isFlipped ? {display: 'none'} : {}
+        const style = this.state.notFlipped ? {display: 'none'} : {}
+        const hidden = this.props.isHidden ? {visibility: 'hidden'} : {}
         return(
-            <div className='Card' onClick={this.cardClicked}>
+            <div style={hidden} className='Card' onClick={this.cardClicked}>
                 <img style={style} src={this.props.imageAddress} alt="ERROR"></img>
             </div>
         )
