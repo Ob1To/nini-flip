@@ -8,43 +8,44 @@ class Cardboard extends Component {
         super(props)
 
         this.onCardClick = this.props.onCardClick.bind(this);
-
-        this.state = {
-            currentGameboard: this.props.currentGameboard
-        }
-    }
-
-    fillTheBoard = function () {
-        for (let i = 0; i < 16 / 4; i++) {
-            this.props.currentGameboard[i] = [];
-        }
-    
-        for (let i = 0; i < 16 / 4; i++) {
-            for (let y = 0; y < 16 / 4; y++) {
-                this.props.currentGameboard[i][y] = <Card isHidden={this.props.isHidden} onCardClick={this.onCardClick} imageAddress={urlGenerator(this.props.arrayImages)} />;
-            }
-        }
-    }
-
-    componentDidMount() {
-        this.fillTheBoard();
     }
 
     render() {
+
         return (
             <div className='Cardboard-main'>
-                {this.state.currentGameboard}
+                {this.props.arrayOfCards.map(i => <Card key={i.key} coordinates={i.coordinates} isHidden={i.isHidden} notFlipped={i.notFlipped} imageAddress={i.imageAddress} onCardClick={this.props.onCardClick} />)}
             </div>
         )
     }
+
+    // fillTheBoard = () => {
+    //     let board = []
+    //     for (let i = 0; i < 8 / 4; i++) {
+    //         board[i] = [];
+    //     }
+
+    //     for (let i = 0; i < 8 / 4; i++) {
+    //         for (let y = 0; y < 8 / 4; y++) {
+    //             let imageAddress = this.urlGenerator(this.props.arrayImages)
+    //             board[i][y] = <Card key={i + y} coordinates={i.toString() + y.toString()} isHidden={false} notFlipped={true}
+    //                 onCardClick={this.onCardClick} imageAddress={imageAddress} onCardboardCardClick={this.onCardboardCardClick} />;
+
+
+    //         }
+    //     }
+    //     return board;
+    // }
+
+    // urlGenerator = (imgSourceArray) => {
+    //     while (imgSourceArray.length) {
+    //         var index = Math.floor(Math.random() * imgSourceArray.length);
+    //         let item = imgSourceArray[index];
+    //         imgSourceArray.splice(index, 1);
+    //         return item
+    //     }
+    // }
 }
 
-const urlGenerator = function (imgSourceArray) {
-    while (imgSourceArray.length) {
-        var index = Math.floor(Math.random() * imgSourceArray.length);
-        let item = imgSourceArray[index];
-        imgSourceArray.splice(index, 1);
-        return item
-    }
-}
+
 export default Cardboard
