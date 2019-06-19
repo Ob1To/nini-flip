@@ -57,22 +57,67 @@ class Game extends Component {
             time: 0,
             score: 0,
             level: 0,
+            lastClicked: null,
             cardboard: [
-                {key: 0, coordinates: 0, isHidden:false, notFlipped:true, imageAddress: "/images/1.jpg"},
-                {key: 1, coordinates: 1, isHidden:false, notFlipped:true, imageAddress: "/images/1.jpg"},
-                {key: 2, coordinates: 2, isHidden:false, notFlipped:true, imageAddress: "/images/2.jpg"},
-                {key: 3, coordinates: 3, isHidden:false, notFlipped:true, imageAddress: "/images/2.jpg"}
+                { key: 0, coordinates: 0, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
+                { key: 1, coordinates: 1, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
+                { key: 2, coordinates: 2, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" },
+                { key: 3, coordinates: 3, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" }
             ]
         }
 
     }
 
     onCardClick(card) {
-        this.setState(prevState =>{
-            let board = prevState.cardboard;
-            board[card.props.coordinates].notFlipped = !board[card.props.coordinates].notFlipped;
-            return board;
-        })
+        if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress === card.props.imageAddress) {
+            this.setState(prevState => {
+                let cardboard = prevState.cardboard;
+                cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
+                cardboard[card.props.coordinates].isHidden = !cardboard[card.props.coordinates].isHidden;
+                let lastClicked = null;
+                return {
+                    cardboard,
+                    lastClicked
+                }
+            })
+        } else if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress !== card.props.imageAddress) {
+            this.setState(prevState => {
+                let cardboard = prevState.cardboard;
+                // cardboard[this.state.lastClicked.props.coordinates].notFlipped = !cardboard[this.state.lastClicked.props.coordinates].notFlipped;
+                cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+
+                setTimeout(() => {
+                    this.flipBack(card);
+                }, 1000);
+
+                return {
+                    cardboard
+                }
+            })
+        } else {
+            this.setState(prevState => {
+                let cardboard = prevState.cardboard;
+                cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+                let lastClicked = card;
+                return {
+                    cardboard,
+                    lastClicked
+                }
+            })
+        }
+    }
+
+    flipBack(card) {
+        this.setState(prevState => {
+            let cardboard = prevState.cardboard;
+            cardboard[this.state.lastClicked.props.coordinates].notFlipped = !cardboard[this.state.lastClicked.props.coordinates].notFlipped;
+            cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+            let lastClicked = null;
+            return {
+                cardboard,
+                lastClicked
+            };
+        });
     }
 
     render() {
