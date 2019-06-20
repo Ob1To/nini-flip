@@ -1,12 +1,6 @@
-html{
-  min-height: 100vh;
-}
-
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
   font-family: 'Shadows Into Light',"Courier New", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

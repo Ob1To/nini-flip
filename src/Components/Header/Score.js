@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './../styles/Score-main.css'
+import './../../styles/Score-main.css'
 
 class Score extends Component {
     render (){

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Cardboard from './Cardboard'
-import Header from './Header'
-import './../styles/Game-main.css'
+import Header from './../Header/Header'
+import './../../styles/Game-main.css'
 
 // let imgSourceArray = [
 //     '/images/1.jpg',
@@ -45,6 +45,24 @@ import './../styles/Game-main.css'
 //         return item
 //     }
 // }
+const allCardsArray = [
+    { key: 0, coordinates: 0, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
+    { key: 1, coordinates: 1, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
+    { key: 2, coordinates: 2, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" },
+    { key: 3, coordinates: 3, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" },
+    { key: 4, coordinates: 4, isHidden: false, notFlipped: true, imageAddress: "/images/3.jpg" },
+    { key: 5, coordinates: 5, isHidden: false, notFlipped: true, imageAddress: "/images/3.jpg" },
+    { key: 6, coordinates: 6, isHidden: false, notFlipped: true, imageAddress: "/images/4.jpg" },
+    { key: 7, coordinates: 7, isHidden: false, notFlipped: true, imageAddress: "/images/4.jpg" },
+    { key: 8, coordinates: 8, isHidden: false, notFlipped: true, imageAddress: "/images/5.jpg" },
+    { key: 9, coordinates: 9, isHidden: false, notFlipped: true, imageAddress: "/images/5.jpg" },
+    { key: 10, coordinates: 10, isHidden: false, notFlipped: true, imageAddress: "/images/6.jpg" },
+    { key: 11, coordinates: 11, isHidden: false, notFlipped: true, imageAddress: "/images/6.jpg" },
+    { key: 12, coordinates: 12, isHidden: false, notFlipped: true, imageAddress: "/images/7.jpg" },
+    { key: 13, coordinates: 13, isHidden: false, notFlipped: true, imageAddress: "/images/7.jpg" },
+    { key: 14, coordinates: 14, isHidden: false, notFlipped: true, imageAddress: "/images/8.jpg" },
+    { key: 15, coordinates: 15, isHidden: false, notFlipped: true, imageAddress: "/images/8.jpg" }
+]
 
 
 class Game extends Component {
@@ -52,32 +70,41 @@ class Game extends Component {
         super(props)
 
         this.onCardClick = this.onCardClick.bind(this)
+        this.levelSelection = this.levelSelection.bind(this)
 
         this.state = {
             time: 0,
             score: 0,
             level: 0,
+            disabled: false,
             lastClicked: null,
-            cardboard: [
-                { key: 0, coordinates: 0, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
-                { key: 1, coordinates: 1, isHidden: false, notFlipped: true, imageAddress: "/images/1.jpg" },
-                { key: 2, coordinates: 2, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" },
-                { key: 3, coordinates: 3, isHidden: false, notFlipped: true, imageAddress: "/images/2.jpg" }
-            ]
+            cardboard: []
         }
 
     }
 
     onCardClick(card) {
+        if(this.state.disabled){
+            return;
+        }
+
+        if(this.state.lastClicked !== null && card !== null){
+            this.setState({
+                disabled:true
+            })
+        }
+
         if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress === card.props.imageAddress) {
             this.setState(prevState => {
                 let cardboard = prevState.cardboard;
-                cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
-                cardboard[card.props.coordinates].isHidden = !cardboard[card.props.coordinates].isHidden;
-                let lastClicked = null;
+                // cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
+                cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+
+                setTimeout(() => {
+                    this.hideCards(card);
+                }, 1000);
                 return {
-                    cardboard,
-                    lastClicked
+                    cardboard
                 }
             })
         } else if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress !== card.props.imageAddress) {
@@ -110,21 +137,45 @@ class Game extends Component {
     flipBack(card) {
         this.setState(prevState => {
             let cardboard = prevState.cardboard;
+            let disabled = false;
             cardboard[this.state.lastClicked.props.coordinates].notFlipped = !cardboard[this.state.lastClicked.props.coordinates].notFlipped;
             cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
             let lastClicked = null;
             return {
                 cardboard,
-                lastClicked
+                lastClicked,
+                disabled
             };
         });
+    }
+
+    hideCards(card) {
+        this.setState(prevState => {
+            let cardboard = prevState.cardboard;
+            let disabled = false;
+            cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
+            cardboard[card.props.coordinates].isHidden = !cardboard[card.props.coordinates].isHidden;
+            let lastClicked = null;
+            return {
+                cardboard,
+                lastClicked,
+                disabled
+            };
+        });
+    }
+
+    levelSelection (levelSelection){
+        this.setState({
+            level:levelSelection
+        })
+        console.log(levelSelection);
     }
 
     render() {
 
         return (
-            <div>
-                <Header level={this.state.level} score={this.state.score} time={this.state.time} />
+            <div className="Game-main" disabled={this.state.disabled}>
+                <Header levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
                 <Cardboard arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} />
             </div>
         )

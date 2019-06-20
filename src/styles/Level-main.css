@@ -1,4 +1,30 @@
 .Level-main{
     width: 33.33%;
-    background-color: blue;
+    position: relative;
+    background-color: white;
+    cursor: default;
+}
+
+.Dropdown-root{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.Dropdown-control{
+    text-align: center;
+    font-weight: bold;
+    border-radius: 2px;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    padding: 1px;
+    transition: all 200ms ease;
+    border: none;
+}
+
+.choose-level{
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid black;
 }

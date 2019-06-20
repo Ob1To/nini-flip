@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Card from './Card'
-import './../styles/Cardboard-main.css'
+import './../../styles/Cardboard-main.css'
 
 class Cardboard extends Component {
 

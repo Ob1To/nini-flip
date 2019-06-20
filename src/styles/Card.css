@@ -1,26 +1,15 @@
 .Card {
-    background-image: url('/images/card-back.png');
+    background-image: url(/images/card-back.png);
     background-size: 100% 100%;
-    
     border: 1px solid black;
-    width: 20%;
-    height: 22%;
-    text-align: center;
-    justify-content: center;
+    width: 8vw;
+    height: 18vh;
     cursor: pointer;
+    margin-top: 4%;
     -webkit-touch-callout: none;
-    /* iOS Safari */
     -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
     -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
     user-select: none;
-    /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
 }
 
 img {
