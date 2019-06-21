@@ -2,7 +2,6 @@
     background-image: url(/images/card-back.png);
     background-size: 100% 100%;
     border: 1px solid black;
-    width: 8vw;
     height: 18vh;
     cursor: pointer;
     margin-top: 4%;
@@ -15,4 +14,16 @@
 img {
     height: 100%;
     width: 100%;
+}
+
+.card-width-8vw {
+    width: 8vw;
+}
+
+.card-width-7vw {
+    width: 7vw;
+}
+
+.card-width-6vw {
+    width: 6vw;
 }

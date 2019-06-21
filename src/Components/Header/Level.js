@@ -7,9 +7,10 @@ import './../../styles/Level-main.css'
 const options = [
     { value: '8', label: 'Easy'},
     { value: '12', label: 'Medium'},
-    { value: '16', label: 'Hard'}
+    { value: '16', label: 'Hard'},
+    { value: '20', label: 'Very Hard'},
+    { value: '24', label: 'Insane'}
 ]
-const defaultOption = options[2]
 
 class Level extends Component {
     constructor(props) {
