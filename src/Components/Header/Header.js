@@ -9,7 +9,6 @@ import './../../styles/Score-main.css'
 class Header extends Component {
     constructor(props) {
         super(props)
-
         this.levelSelection = this.props.levelSelection.bind(this)
     }
     render() {

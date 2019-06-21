@@ -68,12 +68,12 @@ class Game extends Component {
 
             // While there remain elements to shuffle...
             while (0 !== currentIndex) {
-            
+
                 // Pick a remaining element...
                 randomIndex = Math.floor(Math.random() * currentIndex);
                 currentIndex -= 1;
                 // And swap it with the current element.
-                
+
                 temporaryValue = array[currentIndex];
                 array[currentIndex] = array[randomIndex];
                 array[randomIndex] = temporaryValue;
@@ -91,9 +91,13 @@ class Game extends Component {
         }
 
         if (this.state.lastClicked !== null && card !== null) {
-            this.setState({
-                disabled: true
-            })
+            if (this.state.lastClicked === card) {
+                return;
+            } else {
+                this.setState({
+                    disabled: true
+                })
+            }
         }
 
         if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress === card.props.imageAddress) {

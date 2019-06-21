@@ -21,7 +21,9 @@ class Cardboard extends Component {
             <div>
                 {this.props.gameStarted
                     ? <div className='Cardboard-main'>{this.props.arrayOfCards.map(i => <Card key={i.key} coordinates={i.coordinates} isHidden={i.isHidden} notFlipped={i.notFlipped} imageAddress={i.imageAddress} onCardClick={this.props.onCardClick} level={this.props.level}/>)}</div>
-                    : <div id='start-button-container'><button onClick={this.startButtonClicked} className='/start-game'>Start Game</button></div>
+                    : <div id='start-button-container'>
+                        <button onClick={this.startButtonClicked} className='/start-game'>Start Game</button>
+                        </div>
                 }
             </div>
         )

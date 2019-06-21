@@ -1,5 +1,6 @@
 .Cardboard-main {
     display: flex;
+    width: 100%;
     height: auto;
     padding-bottom: 4%;
     justify-content: space-around;
