@@ -17,7 +17,7 @@ class Header extends Component {
         return (
             <div className='Header-main'>
                 <Timer />
-                <Level levelSelection={this.props.levelSelection}/>
+                <Level gameStarted={this.props.gameStarted} levelSelection={this.props.levelSelection}/>
                 <Score />
             </div>
         )

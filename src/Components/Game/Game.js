@@ -70,17 +70,25 @@ class Game extends Component {
         super(props)
 
         this.onCardClick = this.onCardClick.bind(this)
+        this.startButtonClicked = this.startButtonClicked.bind(this)
         this.levelSelection = this.levelSelection.bind(this)
 
         this.state = {
             time: 0,
             score: 0,
-            level: 0,
+            level: 8,
+            gameStarted: false,
             disabled: false,
             lastClicked: null,
             cardboard: []
         }
 
+    }
+
+    startButtonClicked() {
+        this.setState(prevState => ({
+            gameStarted: !prevState.gameStarted
+        }))
     }
 
     onCardClick(card) {
@@ -168,15 +176,14 @@ class Game extends Component {
         this.setState({
             level:levelSelection
         })
-        console.log(levelSelection);
     }
 
     render() {
 
         return (
             <div className="Game-main" disabled={this.state.disabled}>
-                <Header levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
-                <Cardboard arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} />
+                <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
+                <Cardboard startButtonClicked={this.startButtonClicked} gameStarted={this.state.gameStarted} arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} />
             </div>
         )
     }

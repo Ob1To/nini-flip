@@ -5,11 +5,11 @@ import 'react-dropdown/style.css'
 import './../../styles/Level-main.css'
 
 const options = [
-    { value: 8, label: 'Easy', className: 'myOptionClassName' },
-    { value: 12, label: 'Medium', className: 'myOptionClassName' },
-    { value: 16, label: 'Hard', className: 'myOptionClassName' }
+    { value: '8', label: 'Easy'},
+    { value: '12', label: 'Medium'},
+    { value: '16', label: 'Hard'}
 ]
-const defaultOption = options[0]
+const defaultOption = options[2]
 
 class Level extends Component {
     constructor(props) {
@@ -17,16 +17,24 @@ class Level extends Component {
         this.levelSelection = this.props.levelSelection.bind(this)
         this._onSelect = this._onSelect.bind(this)
 
+        this.state = {
+            dropdownLabel: "Easy"
+        }
+
     }
     _onSelect(option) {
-        this.levelSelection(option.value)
+        this.levelSelection(parseInt(option.value));
+
+        this.setState({
+            dropdownLabel:option.label
+        })
     }
 
     render() {
         return (
             <div className='Level-main'>
                 <div className='choose-level'>Choose You Level</div>
-                <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+                <Dropdown disabled={this.props.gameStarted} options={options} value={this.state.dropdownLabel} onChange={this._onSelect} placeholder="Select an option" />
             </div>
         )
     }

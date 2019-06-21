@@ -8,13 +8,21 @@ class Cardboard extends Component {
         super(props)
 
         this.onCardClick = this.props.onCardClick.bind(this);
+        this.startButtonClicked = this.props.startButtonClicked.bind(this);
     }
 
     render() {
 
         return (
-            <div className='Cardboard-main'>
-                {this.props.arrayOfCards.map(i => <Card key={i.key} coordinates={i.coordinates} isHidden={i.isHidden} notFlipped={i.notFlipped} imageAddress={i.imageAddress} onCardClick={this.props.onCardClick} />)}
+            // <div className='Cardboard-main'>
+            //     {this.props.arrayOfCards.map(i => <Card key={i.key} coordinates={i.coordinates} isHidden={i.isHidden} notFlipped={i.notFlipped} imageAddress={i.imageAddress} onCardClick={this.props.onCardClick} />)}
+            // </div>
+
+            <div>
+                {this.props.gameStarted
+                    ? this.props.arrayOfCards.map(i => <Card key={i.key} coordinates={i.coordinates} isHidden={i.isHidden} notFlipped={i.notFlipped} imageAddress={i.imageAddress} onCardClick={this.props.onCardClick} />)
+                    : <div id='start-button-container'><button onClick={this.startButtonClicked} className='/start-game'>Start Game</button></div>
+                }
             </div>
         )
     }

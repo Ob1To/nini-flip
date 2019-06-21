@@ -7,3 +7,19 @@
     flex-wrap: wrap;
     border: 1px solid black;
 }
+
+button {
+    background: #3498db;
+    height: 5vh;
+    width: 20vw;
+    margin-top: 2%;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#start-button-container{
+    text-align: center;
+    height: 7vh;
+    width: 100%;
+    border: 1px solid black;
+}
