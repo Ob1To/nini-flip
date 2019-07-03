@@ -1,4 +1,7 @@
 .Timer-main{
     width: 33.33%;
-    background-color: red;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    margin: auto 0;
 }

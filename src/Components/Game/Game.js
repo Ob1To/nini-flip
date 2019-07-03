@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Cardboard from './Cardboard'
+import Scoreboard from './Scoreboard'
 import Header from './../Header/Header'
 import './../../styles/Game-main.css'
 
@@ -40,8 +41,10 @@ class Game extends Component {
 
         this.state = {
             time: 0,
+            gameFinished: false,
             score: 0,
             level: 8,
+            gameCounter: 8,
             gameStarted: false,
             disabled: false,
             lastClicked: null,
@@ -50,7 +53,19 @@ class Game extends Component {
 
     }
 
+    startTimer() {
+        this.timer = setInterval(() => this.setState({
+            time: this.state.time + 1
+        }), 1000)
+
+    }
+
+    stopTimer() {
+        clearInterval(this.timer)
+    }
+
     startButtonClicked() {
+        this.startTimer();
         this.setState(prevState => ({
             gameStarted: true,
             cardboard: this.generateCardboard(prevState)
@@ -101,18 +116,38 @@ class Game extends Component {
         }
 
         if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress === card.props.imageAddress) {
-            this.setState(prevState => {
-                let cardboard = prevState.cardboard;
-                // cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
-                cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
 
-                setTimeout(() => {
-                    this.hideCards(card);
-                }, 1000);
-                return {
-                    cardboard
-                }
-            })
+            if (this.updateGameCounter()) {
+                this.setState(prevState => {
+                    let cardboard = prevState.cardboard;
+                    // cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
+                    cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+
+                    setTimeout(() => {
+                        this.hideCards(card);
+                    }, 1000);
+                    return {
+                        cardboard
+                    }
+                })
+            } else {
+                this.setState(prevState => {
+                    let cardboard = prevState.cardboard;
+                    // cardboard[this.state.lastClicked.props.coordinates].isHidden = !cardboard[this.state.lastClicked.props.coordinates].isHidden;
+                    cardboard[card.props.coordinates].notFlipped = !cardboard[card.props.coordinates].notFlipped;
+
+                    setTimeout(() => {
+                        this.hideCards(card);
+                    }, 1000);
+                    return {
+                        cardboard
+                    }
+                })
+                this.stopTimer()
+                this.showScore()
+                // GAME FINISHED
+            }
+
         } else if (this.state.lastClicked !== null && this.state.lastClicked.props.imageAddress !== card.props.imageAddress) {
             this.setState(prevState => {
                 let cardboard = prevState.cardboard;
@@ -173,18 +208,45 @@ class Game extends Component {
 
     levelSelection(levelSelection) {
         this.setState({
-            level: levelSelection
+            level: levelSelection,
+            gameCounter: levelSelection
+        })
+    }
+
+    updateGameCounter() {
+        if (this.state.gameCounter === 2) {
+            return false
+        } else {
+            this.setState(prevState => ({
+                gameCounter: prevState.gameCounter - 2
+            }))
+            return true;
+        }
+    }
+
+    showScore() {
+        this.setState({
+            gameFinished:true
         })
     }
 
     render() {
 
-        return (
-            <div className="Game-main" disabled={this.state.disabled}>
-                <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
-                <Cardboard startButtonClicked={this.startButtonClicked} gameStarted={this.state.gameStarted} arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} level={this.state.level} />
-            </div>
-        )
+        if(this.state.gameFinished === false){
+            return (
+                <div className="Game-main" disabled={this.state.disabled}>
+                    <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time}/>
+                    <Cardboard startButtonClicked={this.startButtonClicked} gameStarted={this.state.gameStarted} arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} level={this.state.level} />
+                </div>
+            )
+        }else{
+            return (
+                <div className="Game-main" disabled={this.state.disabled}>
+                    <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time}/>
+                    <Scoreboard />
+                </div>
+            )
+        }
     }
 }
 

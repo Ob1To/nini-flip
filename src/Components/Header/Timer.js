@@ -3,16 +3,16 @@ import './../../styles/Timer-main.css'
 
 class Timer extends Component {
 
-constructor(props){
-    super(props)
+    constructor(props) {
+        super(props)
 
-}
+    }
 
-    render (){
-        return(
+    render() {
+        return (
             <div className='Timer-main'>
-                Time: 
-                </div>
+                Time: {this.props.time}
+            </div>
         )
     }
 }
