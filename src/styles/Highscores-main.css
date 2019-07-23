@@ -1,0 +1,12 @@
+.Highscores-main{
+    width: 33.33%;
+    font-weight: bold;
+    color: white;
+    margin: auto 0;
+    height: inherit;
+}
+
+.highscore-element{
+    height: 33%;
+    margin-left: 4px;
+}

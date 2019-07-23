@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Timer from './Timer'
 import Level from './Level'
-import Score from './Score'
+import Highscores from './Highscores'
 import './../../styles/Header.css'
 import './../../styles/Level-main.css'
-import './../../styles/Score-main.css'
+import './../../styles/Highscores-main.css'
 
 class Header extends Component {
     constructor(props) {
@@ -17,7 +17,7 @@ class Header extends Component {
             <div className='Header-main'>
                 <Timer time={this.props.time} timerIsOn={this.props.timerIsOn}/>
                 <Level gameStarted={this.props.gameStarted} levelSelection={this.props.levelSelection}/>
-                <Score />
+                <Highscores highscores={this.props.highscores}/>
             </div>
         )
     }

@@ -42,7 +42,18 @@ class Game extends Component {
         this.state = {
             time: 0,
             gameFinished: false,
-            score: 0,
+            highscores: [{
+                name: "",
+                time: 0
+            },
+            {
+                name: "",
+                time: 0
+            },
+            {
+                name: "",
+                time: 0
+            }],
             level: 8,
             gameCounter: 8,
             gameStarted: false,
@@ -51,6 +62,12 @@ class Game extends Component {
             cardboard: []
         }
 
+    }
+
+    componentDidMount() {
+        fetch("http://localhost:3000/highscores/top3")
+            .then(res => res.json())
+            .then(res => this.setState({ highscores: res }))
     }
 
     startTimer() {
@@ -226,23 +243,23 @@ class Game extends Component {
 
     showScore() {
         this.setState({
-            gameFinished:true
+            gameFinished: true
         })
     }
 
     render() {
 
-        if(this.state.gameFinished === false){
+        if (this.state.gameFinished === false) {
             return (
                 <div className="Game-main" disabled={this.state.disabled}>
-                    <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time}/>
+                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
                     <Cardboard startButtonClicked={this.startButtonClicked} gameStarted={this.state.gameStarted} arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} level={this.state.level} />
                 </div>
             )
-        }else{
+        } else {
             return (
                 <div className="Game-main" disabled={this.state.disabled}>
-                    <Header gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time}/>
+                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
                     <Scoreboard />
                 </div>
             )
