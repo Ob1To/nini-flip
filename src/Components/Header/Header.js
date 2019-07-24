@@ -9,14 +9,16 @@ import './../../styles/Highscores-main.css'
 class Header extends Component {
     constructor(props) {
         super(props)
+        
         this.levelSelection = this.props.levelSelection.bind(this)
+        this.usernameChanged = this.props.usernameChanged.bind(this);
     }
     render() {
 
         return (
             <div className='Header-main'>
                 <Timer time={this.props.time} timerIsOn={this.props.timerIsOn}/>
-                <Level gameStarted={this.props.gameStarted} levelSelection={this.props.levelSelection}/>
+                <Level gameStarted={this.props.gameStarted} levelSelection={this.props.levelSelection} usernameChanged={this.props.usernameChanged}/>
                 <Highscores highscores={this.props.highscores}/>
             </div>
         )

@@ -38,6 +38,7 @@ class Game extends Component {
         this.onCardClick = this.onCardClick.bind(this)
         this.startButtonClicked = this.startButtonClicked.bind(this)
         this.levelSelection = this.levelSelection.bind(this)
+        this.usernameChanged = this.usernameChanged.bind(this)
 
         this.state = {
             time: 0,
@@ -59,9 +60,16 @@ class Game extends Component {
             gameStarted: false,
             disabled: false,
             lastClicked: null,
-            cardboard: []
+            cardboard: [],
+            username: ""
         }
 
+    }
+
+    usernameChanged(newUsername) {
+        this.setState({
+            username: newUsername
+        })
     }
 
     componentDidMount() {
@@ -245,6 +253,8 @@ class Game extends Component {
         this.setState({
             gameFinished: true
         })
+
+        recordScore();
     }
 
     render() {
@@ -252,19 +262,23 @@ class Game extends Component {
         if (this.state.gameFinished === false) {
             return (
                 <div className="Game-main" disabled={this.state.disabled}>
-                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
+                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} usernameChanged={this.usernameChanged}/>
                     <Cardboard startButtonClicked={this.startButtonClicked} gameStarted={this.state.gameStarted} arrayOfCards={this.state.cardboard} onCardClick={this.onCardClick} level={this.state.level} />
                 </div>
             )
         } else {
             return (
                 <div className="Game-main" disabled={this.state.disabled}>
-                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} />
+                    <Header highscores={this.state.highscores} gameStarted={this.state.gameStarted} levelSelection={this.levelSelection} score={this.state.score} time={this.state.time} usernameChanged={this.usernameChanged}/>
                     <Scoreboard />
                 </div>
             )
         }
     }
+}
+
+recordScore(){
+
 }
 
 export default Game
